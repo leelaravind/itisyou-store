@@ -1,0 +1,67 @@
+# ITISYOU Store — Project TODO
+
+## Database & Backend
+- [x] Extend Drizzle schema: products, categories, product_images, reviews, orders, analytics_events, site_settings
+- [x] Generate and apply DB migrations
+- [x] Seed initial products (PreflightQC, Bank Statement Format Studio)
+- [x] Backend tRPC routers: products, reviews, orders, analytics, admin, settings
+- [x] Admin-only procedure guard
+- [x] Image upload via S3 storage
+
+## Global Layout & Theming
+- [x] Premium dark theme with ITISYOU brand palette in index.css
+- [x] Google Fonts (Inter + Playfair Display) in index.html
+- [x] StorefrontLayout component (top nav, footer)
+- [x] App.tsx routing: /, /products, /products/:slug, /admin/*, /login
+
+## Public Storefront — Homepage
+- [x] Hero section with ITISYOU brand identity and CTA
+- [x] Featured products section
+- [x] Category highlights
+- [x] Founder section (Neela Aravind Karlapudi)
+- [x] Footer with support/legal links
+
+## Products Listing Page (/products)
+- [x] Product grid with cards
+- [x] Search bar
+- [x] Category filter
+- [x] Sort by: newest, price, featured
+- [x] Coming soon badges
+
+## Product Detail Page (/products/:slug)
+- [x] Breadcrumb navigation
+- [x] Product hero (icon, name, tagline, status, price)
+- [x] Description, features, use cases
+- [x] System requirements, version info
+- [x] Buy button → external checkout URL
+- [x] Reviews section (submit + list)
+
+## Authentication
+- [x] Manus OAuth login/logout flow
+- [x] Protected routes for authenticated users
+- [x] Admin role guard on admin routes
+
+## Admin Dashboard (/admin)
+- [x] Admin layout with sidebar
+- [x] Overview: total products, users, page views, buy clicks
+- [x] Product list with edit/delete actions
+- [x] Add/edit product form (all fields + image upload)
+- [x] Pricing & discount management
+- [x] Review moderation (approve/reject/hide/delete)
+- [x] Analytics page with bar chart
+
+## SEO & Performance
+- [x] Semantic HTML, meta tags, Open Graph
+- [x] robots.txt
+- [x] Lazy loading, optimized images
+
+## Testing & QA
+- [x] Vitest unit tests for backend routers (10 tests passing)
+- [x] Browser verification of storefront flows
+- [x] Browser verification of admin dashboard
+
+## GitHub & Deployment
+- [ ] README.md with setup, env vars, deployment guide
+- [ ] .env.example file
+- [ ] Create private GitHub repository
+- [ ] Push to main branch
