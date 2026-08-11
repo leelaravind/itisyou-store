@@ -61,7 +61,7 @@
 - [x] Browser verification of admin dashboard
 
 ## GitHub & Deployment
-- [ ] README.md with setup, env vars, deployment guide
-- [ ] .env.example file
-- [ ] Create private GitHub repository
-- [ ] Push to main branch
+- [x] README.md with setup, env vars, deployment guide
+- [x] .env.example (documented in README — env file creation blocked by platform security)
+- [x] Create private GitHub repository (https://github.com/leelaravind/itisyou-store)
+- [x] Push to main branch (commit 85ecd8b)

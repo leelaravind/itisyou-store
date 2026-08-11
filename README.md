@@ -49,10 +49,10 @@ pnpm install
 
 ### Environment Variables
 
-Copy `.env.example` to `.env` and fill in the values:
+Copy `env.template` to `.env` and fill in the values:
 
 ```bash
-cp .env.example .env
+cp env.template .env
 ```
 
 See `.env.example` for all required variables. The following are automatically injected in the Manus hosting environment and do not need to be set manually when deployed there:
