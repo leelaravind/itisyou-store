@@ -8,6 +8,16 @@
     <meta property="og:title" content="ITISYOU — Digital Products" />
     <meta property="og:description" content="Professional digital tools for creators, editors and finance teams." />
     <meta property="og:type" content="website" />
+    <!-- No-flash theme script: reads localStorage before React renders -->
+    <script>
+      (function(){
+        var t=localStorage.getItem('iy-theme');
+        var d=document.documentElement;
+        if(t==='dark'||(t!=='light'&&window.matchMedia('(prefers-color-scheme:dark)').matches)){
+          d.classList.add('dark');
+        }
+      })();
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet" />

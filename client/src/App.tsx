@@ -12,6 +12,7 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminProducts from "./pages/admin/AdminProducts";
 import AdminReviews from "./pages/admin/AdminReviews";
 import AdminAnalytics from "./pages/admin/AdminAnalytics";
+import AdminAppearance from "./pages/admin/AdminAppearance";
 
 function Router() {
   return (
@@ -20,32 +21,19 @@ function Router() {
       <Route path="/products" component={Products} />
       <Route path="/products/:slug" component={ProductDetail} />
       <Route path="/admin">
-        {() => (
-          <AdminLayout>
-            <AdminDashboard />
-          </AdminLayout>
-        )}
+        {() => (<AdminLayout><AdminDashboard /></AdminLayout>)}
       </Route>
       <Route path="/admin/products">
-        {() => (
-          <AdminLayout>
-            <AdminProducts />
-          </AdminLayout>
-        )}
+        {() => (<AdminLayout><AdminProducts /></AdminLayout>)}
       </Route>
       <Route path="/admin/reviews">
-        {() => (
-          <AdminLayout>
-            <AdminReviews />
-          </AdminLayout>
-        )}
+        {() => (<AdminLayout><AdminReviews /></AdminLayout>)}
       </Route>
       <Route path="/admin/analytics">
-        {() => (
-          <AdminLayout>
-            <AdminAnalytics />
-          </AdminLayout>
-        )}
+        {() => (<AdminLayout><AdminAnalytics /></AdminLayout>)}
+      </Route>
+      <Route path="/admin/appearance">
+        {() => (<AdminLayout><AdminAppearance /></AdminLayout>)}
       </Route>
       <Route path="/404" component={NotFound} />
       <Route component={NotFound} />
@@ -56,7 +44,7 @@ function Router() {
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider defaultTheme="dark">
+        <ThemeProvider defaultTheme="system" switchable={true} storageKey="iy-theme">
         <TooltipProvider>
           <Toaster />
           <Router />
@@ -67,4 +55,3 @@ function App() {
 }
 
 export default App;
-

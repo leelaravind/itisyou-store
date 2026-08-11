@@ -1,7 +1,5 @@
 import { Link } from "wouter";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Clock, Star } from "lucide-react";
+import { ArrowRight, CheckCircle, Clock, Star } from "lucide-react";
 
 type Product = {
   id: number;
@@ -36,73 +34,118 @@ function calcDiscountedPrice(basePrice: string, discountType: string, discountVa
 
 export default function ProductCard({ product }: { product: Product }) {
   const isComingSoon = product.status === "coming_soon";
-  const discounted = product.basePrice ? calcDiscountedPrice(product.basePrice, product.discountType, product.discountValue) : null;
+  const discounted = product.basePrice
+    ? calcDiscountedPrice(product.basePrice, product.discountType, product.discountValue)
+    : null;
 
   return (
     <Link href={`/products/${product.slug}`}>
-      <div className="group relative bg-card border border-border/60 rounded-xl overflow-hidden card-hover cursor-pointer h-full flex flex-col">
+      <article
+        className="group relative card-hover cursor-pointer h-full flex flex-col rounded-xl overflow-hidden"
+        style={{
+          background: "var(--iy-surface)",
+          border: "1px solid var(--iy-border)",
+          boxShadow: "var(--iy-shadow-sm)",
+        }}
+        aria-label={`${product.name}${isComingSoon ? " — Coming Soon" : ""}`}
+        tabIndex={0}
+        onKeyDown={(e) => { if (e.key === "Enter" || e.key === " ") (e.currentTarget as HTMLElement).click(); }}
+      >
         {/* Top accent line */}
-        <div className="h-px bg-gradient-to-r from-transparent via-primary/40 to-transparent" />
+        <div className="h-px" style={{ background: "linear-gradient(90deg, transparent, var(--iy-border-accent), transparent)" }} aria-hidden />
 
-        {/* Icon / placeholder */}
-        <div className="p-6 pb-4">
-          <div className="flex items-start justify-between gap-3">
-            <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center flex-shrink-0 overflow-hidden border border-border/60">
+        <div className="p-5 pb-3 flex-1">
+          <div className="flex items-start justify-between gap-3 mb-4">
+            {/* Icon */}
+            <div
+              className="w-12 h-12 rounded-xl flex items-center justify-center flex-shrink-0 overflow-hidden"
+              style={{ background: "var(--iy-surface-raised)", border: "1px solid var(--iy-border)" }}
+            >
               {product.iconUrl ? (
-                <img src={product.iconUrl} alt={product.name} className="w-full h-full object-cover" />
+                <img src={product.iconUrl} alt="" className="w-full h-full object-cover" loading="lazy" />
               ) : (
-                <span className="font-serif font-bold text-primary text-lg">{product.name[0]}</span>
+                <span className="font-serif font-bold text-lg" style={{ color: "var(--iy-accent)" }} aria-hidden>
+                  {product.name[0]}
+                </span>
               )}
             </div>
-            <div className="flex flex-wrap gap-1.5">
+
+            {/* Badges — color + icon + text for accessibility */}
+            <div className="flex flex-wrap gap-1.5" role="list" aria-label="Product status">
               {product.isFeatured && (
-                <Badge className="text-[10px] px-2 py-0.5 bg-primary/15 text-primary border-primary/20 font-medium">
-                  <Star className="w-2.5 h-2.5 mr-1" />Featured
-                </Badge>
+                <span
+                  className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full font-semibold"
+                  style={{ background: "var(--iy-accent-subtle)", color: "var(--iy-accent)", border: "1px solid var(--iy-border-accent)" }}
+                  role="listitem"
+                >
+                  <Star className="w-2.5 h-2.5 fill-current" aria-hidden /> Featured
+                </span>
               )}
-              {isComingSoon && (
-                <Badge variant="secondary" className="text-[10px] px-2 py-0.5 font-medium">
-                  <Clock className="w-2.5 h-2.5 mr-1" />Coming Soon
-                </Badge>
+              {isComingSoon ? (
+                <span
+                  className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full font-semibold"
+                  style={{ background: "var(--iy-surface-overlay)", color: "var(--iy-text-secondary)", border: "1px solid var(--iy-border)" }}
+                  role="listitem"
+                  aria-label="Coming Soon"
+                >
+                  <Clock className="w-2.5 h-2.5" aria-hidden /> Coming Soon
+                </span>
+              ) : (
+                <span
+                  className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full font-semibold"
+                  style={{ background: "oklch(from var(--iy-success) l c h / 0.12)", color: "var(--iy-success)", border: "1px solid oklch(from var(--iy-success) l c h / 0.25)" }}
+                  role="listitem"
+                  aria-label="Available"
+                >
+                  <CheckCircle className="w-2.5 h-2.5" aria-hidden /> Available
+                </span>
               )}
             </div>
           </div>
 
-          <h3 className="mt-4 font-semibold text-foreground text-base leading-snug group-hover:text-primary transition-colors">
+          <h3
+            className="font-semibold text-base leading-snug mb-1.5 transition-colors"
+            style={{ color: "var(--iy-text-primary)" }}
+          >
             {product.name}
           </h3>
           {product.tagline && (
-            <p className="mt-1 text-xs text-muted-foreground leading-relaxed line-clamp-2">{product.tagline}</p>
+            <p className="text-xs leading-relaxed line-clamp-2" style={{ color: "var(--iy-text-secondary)" }}>
+              {product.tagline}
+            </p>
           )}
         </div>
 
-        <div className="flex-1" />
-
-        <div className="px-6 pb-6 pt-2 flex items-center justify-between">
+        {/* Footer */}
+        <div className="px-5 pb-5 pt-3 flex items-center justify-between" style={{ borderTop: "1px solid var(--iy-border)" }}>
           <div>
             {isComingSoon ? (
-              <span className="text-sm text-muted-foreground font-medium">Coming Soon</span>
+              <span className="text-sm font-medium" style={{ color: "var(--iy-text-muted)" }}>Coming Soon</span>
             ) : product.basePrice ? (
               <div className="flex items-baseline gap-2">
-                <span className="text-base font-bold text-foreground">
+                <span className="text-base font-bold" style={{ color: "var(--iy-text-primary)" }}>
                   {formatPrice(product.currency, discounted ?? product.basePrice)}
                 </span>
                 {discounted && (
-                  <span className="text-xs text-muted-foreground line-through">
+                  <span className="text-xs line-through" style={{ color: "var(--iy-text-muted)" }}>
                     {formatPrice(product.currency, product.basePrice)}
                   </span>
                 )}
               </div>
             ) : (
-              <span className="text-sm text-muted-foreground">Free</span>
+              <span className="text-sm" style={{ color: "var(--iy-text-muted)" }}>Free</span>
             )}
             {product.platform && (
-              <p className="text-[10px] text-muted-foreground/60 mt-0.5">{product.platform}</p>
+              <p className="text-[10px] mt-0.5" style={{ color: "var(--iy-text-muted)" }}>{product.platform}</p>
             )}
           </div>
-          <ArrowRight className="w-4 h-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-0.5 transition-all" />
+          <ArrowRight
+            className="w-4 h-4 transition-transform group-hover:translate-x-1"
+            style={{ color: "var(--iy-text-muted)" }}
+            aria-hidden
+          />
         </div>
-      </div>
+      </article>
     </Link>
   );
 }
